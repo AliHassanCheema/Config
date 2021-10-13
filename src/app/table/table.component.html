@@ -1,0 +1,34 @@
+<div class="container">
+<div class="main">
+<h2 style="margin: 12px 30px;">{{config.title}}</h2>
+<div *ngIf='selectedRow' style="margin: 12px 30px;">
+  <button mat-raised-button color="primary"  class="btnEdit" (click)='editRow()' >Edit</button>
+  <button mat-raised-button color="primary"  (click)='delete()'>Delete</button>
+</div>
+</div>
+<div>
+  <table >
+   <thead>
+    <tr>
+      <th *ngFor="let column of displayColumn" >
+          {{column.title}} 
+     </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let d of data"  (click)="select(d)" [class.selected]='d === selectedRow'>
+        <td *ngFor='let column of displayColumn'> {{d[column.name]}}</td>
+    </tr>
+  </tbody>
+  <!-- <mat-paginator
+    [length]="data.length"
+    [pageSize]="10"
+    [pageSizeOptions]="[5,10,15]"
+    aria-label="Select page"
+    (page)="onPageChange($event)">
+  </mat-paginator> -->
+  
+  </table>
+</div>
+</div>
+<!-- <p>The hero's birthday is {{ birthday | date }}</p> -->

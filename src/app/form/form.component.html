@@ -1,0 +1,52 @@
+<!-- <button mat-button >Delete</button> -->
+<div class="container">
+  <mat-card class="card">
+    <!-- <mat-card-title> {{title}} </mat-card-title> -->
+    <h2>{{config.title}}</h2>
+    <form [formGroup]="profileForm"  (ngSubmit) ='saveData()'>
+      <ng-container *ngFor="let field of config.fields"> 
+        <ng-container [ngSwitch]="field.title">
+            <ng-container *ngSwitchCase="'name'">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>{{field.title}}</mat-label>
+                <input matInput placeholder="Name" value="" [formControlName]="field.name">
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'company'">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>{{field.title}}</mat-label>
+                <mat-select  [formControlName]="field.name">
+                  <mat-option>Select company</mat-option>
+                  <mat-option [value]="op" *ngFor="let op of field.option" >{{op}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'contact'">
+              <mat-form-field class="example-full-width" appearance="fill" >
+                <mat-label>{{field.title}}</mat-label>
+                <input matInput placeholder="Contact" value="" [formControlName]="field.name" type="number">
+                <mat-error *ngIf="profileForm.get(field.name).invalid">
+                  <div *ngIf="profileForm.get(field.name).errors.required">
+                      {{field.title}} is required.
+                  </div>
+              </mat-error>
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngSwitchCase="'country'">
+              <mat-form-field class="example-full-width" appearance="fill">
+                <mat-label>{{field.title}}</mat-label>
+                <mat-select [formControlName]="field.name"  >
+                  <mat-option>Select country</mat-option>
+                  <mat-option [value]="op" *ngFor="let op of field.option">{{op}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+      </ng-container>
+    </ng-container>
+      <button mat-raised-button color="primary"   style="margin-left: 140px;" [disabled]="profileForm.invalid ">Save</button>
+    </form>
+  </mat-card>
+</div>
